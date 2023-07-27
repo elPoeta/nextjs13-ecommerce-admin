@@ -2,12 +2,13 @@ version: '2'
 services:
   db:
     image: postgres
+    container_name: ecommerce_admin_db 
+    hostname: ecommerce_admin_db 
     restart: always
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
-
     environment:
       - POSTGRES_DB=storeDB
       - POSTGRES_USER=postgres
