@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migration:generate": "drizzle-kit generate:pg --schema=./db/schema.ts",
-    "migration:push": "node -r esbuild-register db/migrate.ts",
-    "migrate": "drizzle-kit generate:pg --schema=./db/schema.ts && node -r esbuild-register db/migrate.ts"
+    "migrations:generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
+    "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts",
+    "migrations:push": "drizzle-kit push:pg --config=drizzle.config.ts",
+    "migrate": "pnpm run migrations:generate &&  pnpm run migrations:push"
   },
   "dependencies": {
     "@types/node": "20.4.5",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.10.2",
+    "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.11"
   }
 }
