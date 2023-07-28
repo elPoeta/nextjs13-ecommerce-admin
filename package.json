@@ -12,7 +12,8 @@
     "migrations:push": "drizzle-kit push:pg --config=drizzle.config.ts",
     "migrate": "pnpm run migrations:generate &&  pnpm run migrations:push",
     "docker:db:up": "sudo docker-compose up -d",
-    "docker:db:stop": "sudo docker stop ecommerce_admin_db"
+    "docker:db:stop": "sudo docker stop ecommerce_admin_db",
+    "drizzle:studio": "drizzle-kit studio --port 3005 --verbose"
   },
   "dependencies": {
     "@types/node": "20.4.5",
