@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1690540081440,
-      "tag": "0000_sloppy_ted_forrester",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1690540841924,
-      "tag": "0001_late_blink",
+      "when": 1690544612188,
+      "tag": "0000_legal_chronomancer",
       "breakpoints": true
     }
   ]
