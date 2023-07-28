@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "verification_tokens" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"identifier" serial PRIMARY KEY NOT NULL,
 	"token" varchar(256) NOT NULL,
 	"expires" timestamp NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,

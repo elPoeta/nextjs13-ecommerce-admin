@@ -9,7 +9,7 @@ import {
 export const verificationTokens = pgTable(
   "verification_tokens",
   {
-    id: serial("id").primaryKey().notNull(),
+    identifier: serial("identifier").primaryKey().notNull(),
     token: varchar("token", { length: 256 }).notNull(),
     expires: timestamp("expires").notNull(),
     created_at: timestamp("created_at").notNull().defaultNow(),

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "b3cc3097-9432-4776-8d21-d30f738dc1e5",
+  "id": "a6eec8e7-5490-410d-9c35-6458832a36a9",
   "prevId": "ab9dc84d-47fe-44f0-ba3a-172613fcf02a",
   "tables": {
     "accounts": {
@@ -266,8 +266,8 @@
       "name": "verification_tokens",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "identifier": {
+          "name": "identifier",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
