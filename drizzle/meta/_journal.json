@@ -8,6 +8,13 @@
       "when": 1690544612188,
       "tag": "0000_legal_chronomancer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1690545319238,
+      "tag": "0001_luxuriant_scrambler",
+      "breakpoints": true
     }
   ]
 }
