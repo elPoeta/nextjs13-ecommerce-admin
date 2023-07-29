@@ -1,3 +1,4 @@
+import { InferModel } from "drizzle-orm";
 import {
   pgTable,
   serial,
@@ -25,3 +26,5 @@ export const users = pgTable(
     emailIndex: uniqueIndex("users__email__idx").on(user.email),
   })
 );
+
+export type User = InferModel<typeof users>;

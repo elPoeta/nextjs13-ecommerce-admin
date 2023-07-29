@@ -1,3 +1,4 @@
+import { InferModel } from "drizzle-orm";
 import {
   pgTable,
   serial,
@@ -21,3 +22,5 @@ export const verificationTokens = pgTable(
     ),
   })
 );
+
+export type VerificationToken = InferModel<typeof verificationTokens>;

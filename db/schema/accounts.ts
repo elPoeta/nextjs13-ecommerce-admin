@@ -8,6 +8,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { users } from "./users";
+import { InferModel } from "drizzle-orm";
 
 export const accounts = pgTable(
   "accounts",
@@ -37,3 +38,5 @@ export const accounts = pgTable(
     ).on(account.provider, account.providerAccountId),
   })
 );
+
+export type Account = InferModel<typeof accounts>;
