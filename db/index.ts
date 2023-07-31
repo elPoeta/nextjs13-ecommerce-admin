@@ -5,6 +5,6 @@ const client: NodePgClient = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 
-await client.connect();
+client.connect();
 
 export const db = drizzle(client);
