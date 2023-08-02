@@ -1,17 +1,20 @@
 'use client'
 
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { SessionProvider } from 'next-auth/react'
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
+import ClientOnly from "./ClientOnly";
 
-interface ProvidersProps {
-  children: ReactNode;
-}
-
-const Providers: FC<ProvidersProps> = ({ children }) => {
+const Providers: FC<ThemeProviderProps> = ({ children, ...props }) => {
   return (
-    <SessionProvider>
-      {children}
-    </SessionProvider>
+    <ClientOnly>
+      <NextThemesProvider {...props}>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+      </NextThemesProvider>
+    </ClientOnly>
   )
 }
 
