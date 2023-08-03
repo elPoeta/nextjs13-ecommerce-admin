@@ -5,20 +5,25 @@ import React, { FC, useState } from "react"
 import { signIn } from 'next-auth/react'
 import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/Icons"
+import { useToast } from "@/hooks/use-toast"
 
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
+  const { toast } = useToast()
 
   const loginWithGitHub = async () => {
     setIsLoading(true)
     try {
       await signIn('github')
     } catch (error) {
-      console.log(error)
+      toast({
+        title: 'Error',
+        description: 'There was an error signIn with Github',
+        variant: 'destructive',
+      })
     } finally {
       setIsLoading(false)
     }

@@ -4,6 +4,7 @@ import { Nunito } from 'next/font/google'
 import Providers from '@/components/Providers'
 
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -25,6 +26,7 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+        <Toaster />
       </body>
     </html>
   )
