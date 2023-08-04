@@ -5,21 +5,21 @@ import Modal from '@/components/modals/Modal'
 import { useStoreModal } from '@/hooks/use-store-modal'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormSchema, FormSchemaValidator } from '@/lib/validators/formValidator'
+import { FormModalStoreSchema, FormModalStoreSchemaValidator } from '@/lib/validators/formValidator'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
 const StoreModal = () => {
   const { isOpen, onClose } = useStoreModal();
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(FormSchemaValidator),
+  const form = useForm<FormModalStoreSchema>({
+    resolver: zodResolver(FormModalStoreSchemaValidator),
     defaultValues: {
       name: ""
     }
   })
 
-  const onSubmit = async (values: FormSchema) => {
+  const onSubmit = async (values: FormModalStoreSchema) => {
     console.log(values)
   }
   return (

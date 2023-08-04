@@ -1,7 +1,9 @@
 import { z } from "zod";
 
-export const FormSchemaValidator = z.object({
+export const FormModalStoreSchemaValidator = z.object({
   name: z.string().min(3),
 });
 
-export type FormSchema = z.infer<typeof FormSchemaValidator>;
+export type FormModalStoreSchema = z.infer<
+  typeof FormModalStoreSchemaValidator
+>;
