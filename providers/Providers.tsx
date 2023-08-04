@@ -4,17 +4,19 @@ import { FC } from "react";
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { type ThemeProviderProps } from "next-themes/dist/types"
-import ClientOnly from "./ClientOnly";
+import { ClientOnlyProvider } from "@/providers/ClientOnlyProvider";
+import StoreModal from "@/components/modals/StoreModal";
 
 const Providers: FC<ThemeProviderProps> = ({ children, ...props }) => {
   return (
-    <ClientOnly>
+    <ClientOnlyProvider>
       <NextThemesProvider {...props}>
         <SessionProvider>
+          <StoreModal />
           {children}
         </SessionProvider>
       </NextThemesProvider>
-    </ClientOnly>
+    </ClientOnlyProvider>
   )
 }
 

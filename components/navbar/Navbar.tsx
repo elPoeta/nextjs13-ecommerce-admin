@@ -1,14 +1,19 @@
-import React from 'react'
-import { ModeToggle } from '@/components/ui/modeToggle'
-import { getAuthSession } from '@/lib/auth/auth-options'
-import UserAccount from '@/components/user/UserAccount'
+'use client'
 
-const Navbar = async () => {
-  const session = await getAuthSession()
+import React, { FC } from 'react'
+import { ModeToggle } from '@/components/ui/modeToggle'
+import UserAccount from '@/components/user/UserAccount'
+import { User } from 'next-auth'
+
+interface NavbarProps {
+  user: Pick<User, 'name' | 'image' | 'email'>
+}
+
+const Navbar: FC<NavbarProps> = ({ user }) => {
   return (
     <nav className='py-2 mb-2 border-b-2 w-full flex gap-5 items-center justify-end shadow-sm'>
       <ModeToggle />
-      <UserAccount user={session!.user} />
+      <UserAccount user={user} />
     </nav>
   )
 }
