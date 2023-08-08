@@ -9,7 +9,7 @@ interface SetupProps {
   user: Pick<User, 'name' | 'image' | 'email'>
 }
 
-const Setup: FC<SetupProps> = ({ user }) => {
+const Setup = () => {
   const isOpen = useStoreModal((state: UseStoreModal) => state.isOpen);
   const onOpen = useStoreModal((state: UseStoreModal) => state.onOpen);
 
@@ -19,12 +19,7 @@ const Setup: FC<SetupProps> = ({ user }) => {
     }
   }, [isOpen, onOpen])
 
-  return (
-    <div>
-      <Navbar user={user} />
-      Admin Dashboard
-    </div>
-  )
+  return null;
 }
 
 export default Setup

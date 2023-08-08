@@ -13,7 +13,9 @@ export const store = pgTable(
   "store",
   {
     id: serial("id").primaryKey().notNull(),
-    userId: integer("user_id").notNull(),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
     name: varchar("name", { length: 256 }).unique().notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),

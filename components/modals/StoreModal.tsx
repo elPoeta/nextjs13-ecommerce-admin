@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { z } from 'zod'
 import { toast } from '@/hooks/use-toast'
+import { Store } from '@/db/schema/store'
 
 const StoreModal = () => {
   const { isOpen, onClose } = useStoreModal();
@@ -53,11 +54,9 @@ const StoreModal = () => {
         variant: 'destructive',
       })
     },
-    onSuccess: () => {
-      toast({
-        description: 'Your store has been added'
-      })
-
+    onSuccess: ({ id }: Store) => {
+      console.log('data ', id)
+      window.location.assign(`/${id}`)
     },
   })
 
