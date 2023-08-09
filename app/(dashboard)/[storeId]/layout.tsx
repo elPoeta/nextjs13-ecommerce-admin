@@ -1,3 +1,4 @@
+import DashboardNavbar from "@/components/dashboard/DashboardNavbar";
 import { db } from "@/db";
 import { store } from "@/db/schema/store";
 import { getAuthSession } from "@/lib/auth/auth-options";
@@ -29,7 +30,7 @@ const DasboardLayout: FC<DasboardLayoutProps> = async ({ children, params }) => 
   return (
     <>
       <div>
-        Dasboard Nav here
+        <DashboardNavbar />
         {children}
       </div>
     </>
