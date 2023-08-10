@@ -1,7 +1,7 @@
 'use client'
 
 import { Store } from '@/db/schema/store'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Heading from '@/components/common/Heading'
 import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
@@ -15,12 +15,14 @@ import { Input } from '../ui/input'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import AlertModal from '../modals/AlertModal'
 
 interface SettingsFormProps {
   store: Store
 }
 
 const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const form = useForm<FormModalStoreSchema>({
     resolver: zodResolver(FormModalStoreSchemaValidator),
     defaultValues: store
@@ -57,15 +59,56 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
     },
   })
 
+
+  const { mutate: deleteStore, isLoading: isLoadingDelete } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axios.delete(`/api/stores/${store.id}`)
+      return data
+    },
+    onError: (error) => {
+      // if (error instanceof AxiosError) {
+      //   if (error.response?.status === 409) {
+      //     return toast({
+      //       title: 'Store name already taken.',
+      //       description: 'Please choose a different store name.',
+      //       variant: 'destructive',
+      //     })
+      //   }
+      // }
+      return toast({
+        title: 'There was an error.',
+        description: 'Could not update store.',
+        variant: 'destructive',
+      })
+    },
+    onSuccess: () => {
+      setIsOpen(false)
+      router.refresh()
+      router.push('/')
+      toast({
+        description: 'Your store has been deleted',
+        variant: 'destructive'
+      })
+    },
+  })
+
   const onSubmit = (e: FormModalStoreSchema) => {
     updateStoreName(e)
   }
 
   return (
     <>
+      <AlertModal
+        isOpen={isOpen}
+        loading={isLoading}
+        onClose={() => setIsOpen(false)}
+        onConfirm={() => {
+          deleteStore()
+        }}
+      />
       <div className='flex items-center justify-between'>
         <Heading title='Settings' description='Manage store preferences' />
-        <Button variant='destructive' size='icon' onClick={() => { }}>
+        <Button variant='destructive' size='icon' onClick={() => { setIsOpen(true) }}>
           <Trash className='h-4 w-4' />
         </Button>
       </div>

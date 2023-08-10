@@ -37,3 +37,25 @@ export const PATCH = async (
     return new NextResponse("Internal server error", { status: 500 });
   }
 };
+
+export const DELETE = async (
+  _req: Request,
+  { params }: { params: { storeId: number } }
+) => {
+  try {
+    const session = await getAuthSession();
+    if (!session || session.user.role !== "admin") {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
+    }
+
+    await db.delete(store).where(eq(store.id, params.storeId));
+
+    return new NextResponse("Store deleted");
+  } catch (error) {
+    console.log("[STORE-DELETE]", error);
+    return new NextResponse("Internal server error", { status: 500 });
+  }
+};
