@@ -16,6 +16,8 @@ import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import AlertModal from '../modals/AlertModal'
+import ApiAlert from '../common/ApiAlert'
+import { useOrigin } from '@/hooks/use-origin'
 
 interface SettingsFormProps {
   store: Store
@@ -29,6 +31,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
   })
 
   const router = useRouter();
+  const origin = useOrigin();
 
   const { mutate: updateStoreName, isLoading } = useMutation({
     mutationFn: async (payload: FormModalStoreSchema) => {
@@ -65,16 +68,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
       const { data } = await axios.delete(`/api/stores/${store.id}`)
       return data
     },
-    onError: (error) => {
-      // if (error instanceof AxiosError) {
-      //   if (error.response?.status === 409) {
-      //     return toast({
-      //       title: 'Store name already taken.',
-      //       description: 'Please choose a different store name.',
-      //       variant: 'destructive',
-      //     })
-      //   }
-      // }
+    onError: () => {
       return toast({
         title: 'There was an error.',
         description: 'Could not update store.',
@@ -100,7 +94,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
     <>
       <AlertModal
         isOpen={isOpen}
-        loading={isLoading}
+        loading={isLoadingDelete}
         onClose={() => setIsOpen(false)}
         onConfirm={() => {
           deleteStore()
@@ -141,7 +135,8 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
           >Save changes</Button>
         </form>
       </Form>
-
+      <Separator />
+      <ApiAlert title='NEXT_PUBLIC_API_URL' description={`${origin}/api/${store.id}`} variant='public' />
     </>
   )
 }
