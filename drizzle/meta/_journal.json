@@ -29,6 +29,13 @@
       "when": 1691407031285,
       "tag": "0003_puzzling_firebrand",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1691671435872,
+      "tag": "0004_simple_nomad",
+      "breakpoints": true
     }
   ]
 }
