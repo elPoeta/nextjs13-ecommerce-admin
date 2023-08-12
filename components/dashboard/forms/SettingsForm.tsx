@@ -10,13 +10,13 @@ import { useForm } from 'react-hook-form'
 import { FormModalStoreSchema, FormModalStoreSchemaValidator } from '@/lib/validators/formValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { Input } from '../ui/input'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
+import { Input } from '../../ui/input'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
-import AlertModal from '../modals/AlertModal'
-import ApiAlert from '../common/ApiAlert'
+import AlertModal from '../../modals/AlertModal'
+import ApiAlert from '../../common/ApiAlert'
 import { useOrigin } from '@/hooks/use-origin'
 
 interface SettingsFormProps {
@@ -71,7 +71,7 @@ const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
     onError: () => {
       return toast({
         title: 'There was an error.',
-        description: 'Could not update store.',
+        description: 'Could not delete store.',
         variant: 'destructive',
       })
     },

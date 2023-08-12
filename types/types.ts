@@ -6,6 +6,9 @@ const envVariables = z.object({
 
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string(),
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: z.string(),
 });
 
 envVariables.parse(process.env);

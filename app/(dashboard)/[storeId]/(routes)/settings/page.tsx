@@ -1,4 +1,4 @@
-import SettingsForm from '@/components/dashboard/SettingsForm'
+import SettingsForm from '@/components/dashboard/forms/SettingsForm'
 import { db } from '@/db'
 import { store } from '@/db/schema/store'
 import { getAuthSession } from '@/lib/auth/auth-options'
