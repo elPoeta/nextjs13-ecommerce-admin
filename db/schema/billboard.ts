@@ -13,8 +13,8 @@ export const billboard = pgTable("billboard", {
   storeId: integer("store_id")
     .notNull()
     .references(() => store.id),
-  label: varchar("label", { length: 50 }),
-  imageUrl: varchar("image_url", { length: 256 }),
+  label: varchar("label", { length: 50 }).notNull(),
+  imageUrl: varchar("image_url", { length: 256 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

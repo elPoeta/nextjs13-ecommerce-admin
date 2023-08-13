@@ -1,6 +1,6 @@
 import BillboardForm from '@/components/dashboard/forms/BillboardForm'
 import { db } from '@/db'
-import { billboard } from '@/db/schema/billboard'
+import { Billboard, billboard } from '@/db/schema/billboard'
 import { eq } from 'drizzle-orm'
 import React, { FC } from 'react'
 

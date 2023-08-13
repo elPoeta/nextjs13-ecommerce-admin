@@ -13,7 +13,7 @@ export const PATCH = async (
   try {
     const session = await getAuthSession();
     if (!session || session.user.role !== "admin") {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthenticated", { status: 401 });
     }
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
@@ -45,7 +45,7 @@ export const DELETE = async (
   try {
     const session = await getAuthSession();
     if (!session || session.user.role !== "admin") {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthenticated", { status: 401 });
     }
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });

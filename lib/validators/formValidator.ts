@@ -9,8 +9,8 @@ export type FormModalStoreSchema = z.infer<
 >;
 
 export const FormBillboardSchemaValidator = z.object({
-  label: z.string().min(3).optional(),
-  imageUrl: z.string().min(3).optional(),
+  label: z.string().min(3),
+  imageUrl: z.string().min(3),
 });
 
 export type FormBillboardSchema = z.infer<typeof FormBillboardSchemaValidator>;

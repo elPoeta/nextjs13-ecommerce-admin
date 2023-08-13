@@ -36,6 +36,13 @@
       "when": 1691671435872,
       "tag": "0004_simple_nomad",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1691948939790,
+      "tag": "0005_equal_valeria_richards",
+      "breakpoints": true
     }
   ]
 }

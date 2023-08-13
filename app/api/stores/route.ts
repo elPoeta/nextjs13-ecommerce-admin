@@ -29,7 +29,7 @@ export const POST = async (req: Request) => {
       name,
       userId: parseInt(session.user.id),
     });
-    return new NextResponse(JSON.stringify(newStore));
+    return NextResponse.json(newStore);
   } catch (error) {
     console.log("[STORES-POST]", error);
     if (error instanceof z.ZodError) {

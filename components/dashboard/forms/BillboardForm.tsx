@@ -6,27 +6,22 @@ import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { useForm } from 'react-hook-form'
-import { FormBillboardSchema, FormBillboardSchemaValidator, FormModalStoreSchema, FormModalStoreSchemaValidator } from '@/lib/validators/formValidator'
+import { FormBillboardSchema, FormBillboardSchemaValidator } from '@/lib/validators/formValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
 import { Input } from '../../ui/input'
 import { toast } from '@/hooks/use-toast'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '../../modals/AlertModal'
 
-import { useOrigin } from '@/hooks/use-origin'
 import { Billboard } from '@/db/schema/billboard'
 import axios from 'axios'
 import ImageUpload from '@/components/common/ImageUpload'
 
-interface BillboardOverrride extends Omit<Billboard, 'label' | 'imageUrl'> {
-  label: string | undefined;
-  imageUrl: string | undefined
-}
 
 interface BillboardFormProps {
-  billboard: BillboardOverrride | undefined;
+  billboard: Billboard | undefined;
 }
 
 const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
@@ -39,22 +34,24 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
     }
   })
 
+  const params = useParams();
   const router = useRouter();
 
   const title = billboard ? 'Edit billboard' : 'Create billboard'
   const description = billboard ? 'Edit a billboard.' : 'Add a new billboard.'
   const toastMessage = billboard ? 'Billboard edited.' : 'Billboard created.'
+  const toastErrorMessage = billboard ? 'Could not update billboard.' : 'Could not create billboard.'
   const action = billboard ? 'Save changes' : 'Create'
 
-  const { mutate: updateStoreName, isLoading } = useMutation({
+  const { mutate: createOrUpdateBillboard, isLoading } = useMutation({
     mutationFn: async (payload: FormBillboardSchema) => {
-      const { data } = await axios.patch(`/api/billboards/${billboard?.id}`, payload)
+      const { data } = billboard ? await axios.patch(`/api/${params.storeId}/billboards`, payload) : await axios.post(`/api/${params.storeId}/billboards`, payload)
       return data
     },
     onError: (error) => {
       return toast({
         title: 'There was an error.',
-        description: 'Could not update billboard.',
+        description: toastErrorMessage,
         variant: 'destructive',
       })
     },
@@ -69,13 +66,13 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
 
   const { mutate: deleteBillboard, isLoading: isLoadingDelete } = useMutation({
     mutationFn: async () => {
-      const { data } = await axios.delete(`/api/billboards/${billboard?.id}`)
+      const { data } = await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
       return data
     },
     onError: () => {
       return toast({
         title: 'There was an error.',
-        description: 'Could not delete billboard.',
+        description: 'Could not delete billboard. Remove Categories first.',
         variant: 'destructive',
       })
     },
@@ -91,7 +88,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
   })
 
   const onSubmit = (e: FormBillboardSchema) => {
-    updateStoreName(e)
+    createOrUpdateBillboard(e)
   }
 
   return (
