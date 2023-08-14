@@ -60,6 +60,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
         description: toastMessage
       })
       router.refresh()
+      router.push(`/${params.storeId}/billboards`)
     },
   })
 
