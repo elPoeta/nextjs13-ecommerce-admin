@@ -7,12 +7,11 @@ import Heading from '@/components/common/Heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useRouter, useParams } from 'next/navigation'
-import { Billboard } from '@/db/schema/billboard'
 import { BillboardColumn, columns } from '@/components/dashboard/billboard/columns'
 import { DataTable } from './data-table'
 
 interface BillboardProps {
-  billboardColumns: BillboardColumn[]
+  billboardColumns: BillboardColumn[];
 }
 
 const Billboard: FC<BillboardProps> = ({ billboardColumns }) => {
@@ -32,7 +31,7 @@ const Billboard: FC<BillboardProps> = ({ billboardColumns }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={billboardColumns} />
+      <DataTable columns={columns} data={billboardColumns} searchKey='label' />
     </>
   )
 }
