@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator'
 import { useRouter, useParams } from 'next/navigation'
 import { BillboardColumn, columns } from '@/components/dashboard/billboard/columns'
 import { DataTable } from './data-table'
+import ApiList from '@/components/common/ApiList'
 
 interface BillboardProps {
   billboardColumns: BillboardColumn[];
@@ -32,6 +33,9 @@ const Billboard: FC<BillboardProps> = ({ billboardColumns }) => {
       </div>
       <Separator />
       <DataTable columns={columns} data={billboardColumns} searchKey='label' />
+      <Heading title='API' description='API calls from billboards' />
+      <Separator />
+      <ApiList entityName='billboards' entityIdName='billboardId' />
     </>
   )
 }
