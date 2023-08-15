@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { z } from "zod"
+import CellAction from "./cell-action"
 
 export const BillboardColumnSchema = z.object({
   id: z.number(),
@@ -21,5 +22,8 @@ export const columns: ColumnDef<BillboardColumn>[] = [
     accessorKey: "createdAt",
     header: "Date",
   },
-
+  {
+    id: "action",
+    cell: ({ row }) => <CellAction data={row.original} />
+  }
 ]

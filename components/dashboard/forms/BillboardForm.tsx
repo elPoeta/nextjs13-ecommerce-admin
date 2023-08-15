@@ -80,7 +80,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
     onSuccess: () => {
       setIsOpen(false)
       router.refresh()
-      router.push('/')
+      router.push(`/${params.storeId}/billboards`)
       toast({
         description: 'Your billboard has been deleted',
         variant: 'destructive'
