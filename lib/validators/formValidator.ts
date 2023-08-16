@@ -14,3 +14,10 @@ export const FormBillboardSchemaValidator = z.object({
 });
 
 export type FormBillboardSchema = z.infer<typeof FormBillboardSchemaValidator>;
+
+export const FormCategorySchemaValidator = z.object({
+  name: z.string().min(3),
+  billboardId: z.string(),
+});
+
+export type FormCategorySchema = z.infer<typeof FormCategorySchemaValidator>;

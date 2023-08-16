@@ -43,6 +43,13 @@
       "when": 1691948939790,
       "tag": "0005_equal_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1692100371776,
+      "tag": "0006_noisy_richard_fisk",
+      "breakpoints": true
     }
   ]
 }
