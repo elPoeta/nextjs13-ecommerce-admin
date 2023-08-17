@@ -3,14 +3,15 @@ import {
   pgTable,
   serial,
   timestamp,
+  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 import { store } from "./store";
 import { InferModel, relations } from "drizzle-orm";
 
 export const size = pgTable("size", {
-  id: serial("id").primaryKey().notNull(),
-  storeId: integer("store_id")
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  storeId: uuid("store_id")
     .notNull()
     .references(() => store.id),
   name: varchar("name", { length: 256 }).notNull(),

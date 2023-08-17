@@ -8,7 +8,7 @@ import React, { FC } from 'react'
 
 interface SettingsPageProps {
   params: {
-    storeId: number
+    storeId: string
   }
 }
 

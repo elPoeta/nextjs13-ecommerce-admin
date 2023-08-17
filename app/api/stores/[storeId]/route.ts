@@ -8,7 +8,7 @@ import { z } from "zod";
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { storeId: number } }
+  { params }: { params: { storeId: string } }
 ) => {
   try {
     const session = await getAuthSession();
@@ -40,7 +40,7 @@ export const PATCH = async (
 
 export const DELETE = async (
   _req: Request,
-  { params }: { params: { storeId: number } }
+  { params }: { params: { storeId: string } }
 ) => {
   try {
     const session = await getAuthSession();

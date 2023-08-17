@@ -1,7 +1,7 @@
 import type { Session, User } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 
-type UserId = number | string;
+type UserId = string;
 
 const USER_ROLE = {
   USER: "user",

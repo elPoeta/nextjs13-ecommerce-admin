@@ -1,17 +1,11 @@
 import { InferModel, relations } from "drizzle-orm";
-import {
-  integer,
-  pgTable,
-  serial,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { store } from "./store";
 import { category } from "./category";
 
 export const billboard = pgTable("billboard", {
-  id: serial("id").primaryKey().notNull(),
-  storeId: integer("store_id")
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  storeId: uuid("store_id")
     .notNull()
     .references(() => store.id),
   label: varchar("label", { length: 50 }).notNull(),

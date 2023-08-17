@@ -10,7 +10,7 @@ import { z } from "zod";
 
 export const GET = async (
   req: Request,
-  { params }: { params: { billboardId: number } }
+  { params }: { params: { billboardId: string } }
 ) => {
   try {
     const billboardDb = await db.query.billboard.findFirst({
@@ -26,7 +26,7 @@ export const GET = async (
 
 export const PATCH = async (
   req: Request,
-  { params }: { params: { storeId: number; billboardId: number } }
+  { params }: { params: { storeId: string; billboardId: string } }
 ) => {
   try {
     const session = await getAuthSession();
@@ -41,10 +41,7 @@ export const PATCH = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(
-        eq(store.id, params.storeId),
-        eq(users.id, Number(session.user.id))
-      ),
+      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
     });
 
     if (!storeByUser) {
@@ -73,7 +70,7 @@ export const PATCH = async (
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { storeId: number; billboardId: number } }
+  { params }: { params: { storeId: string; billboardId: string } }
 ) => {
   try {
     const session = await getAuthSession();
@@ -88,10 +85,7 @@ export const DELETE = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(
-        eq(store.id, params.storeId),
-        eq(users.id, Number(session.user.id))
-      ),
+      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
     });
 
     if (!storeByUser) {

@@ -13,7 +13,7 @@ const DashboardNavbar = async () => {
   if (!session || session.user.role !== 'admin') {
     redirect('/sign-in')
   }
-  const stores = await db.select().from(store).where(eq(store.userId, parseInt(session.user.id)))
+  const stores = await db.select().from(store).where(eq(store.userId, session.user.id))
 
   return (
     <div className='border-b'>

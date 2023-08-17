@@ -30,7 +30,7 @@ const CellAction: FC<CellActionProps> = ({ data }) => {
   const params = useParams();
 
   const { mutate: deleteBillboard, isLoading: isLoadingDelete } = useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: string) => {
       const { data } = await axios.delete(`/api/${params.storeId}/billboards/${id}`)
       return data
     },

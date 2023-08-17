@@ -55,7 +55,6 @@ const StoreModal = () => {
       })
     },
     onSuccess: ({ id }: Store) => {
-      console.log('data ', id)
       window.location.assign(`/${id}`)
     },
   })

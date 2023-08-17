@@ -7,7 +7,7 @@ import CellAction from "./cell-action"
 
 
 export const CategoryColumnSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
   billboardLabel: z.string(),
   createdAt: z.string()

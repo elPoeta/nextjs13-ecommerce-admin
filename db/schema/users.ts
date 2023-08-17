@@ -1,18 +1,18 @@
 import { InferModel, relations } from "drizzle-orm";
 import {
   pgTable,
-  serial,
   timestamp,
   uniqueIndex,
   varchar,
   text,
+  uuid,
 } from "drizzle-orm/pg-core";
 import { store } from "./store";
 
 export const users = pgTable(
-  "users",
+  "user",
   {
-    id: serial("id").primaryKey().notNull(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
     name: varchar("name", { length: 100 }),
     email: varchar("email", { length: 256 }).notNull(),
     emailVerified: timestamp("emailVerified"),

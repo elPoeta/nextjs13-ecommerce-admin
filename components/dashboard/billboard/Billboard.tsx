@@ -26,7 +26,7 @@ const Billboard: FC<BillboardProps> = ({ billboardColumns }) => {
           title={`Billboards (${billboardColumns.length})`}
           description='Manage Billboards for your store.'
         />
-        <Button onClick={() => { router.push(`/${params.storeId}/billboards/0`) }}>
+        <Button onClick={() => { router.push(`/${params.storeId}/billboards/new`) }}>
           <Plus className='h-4 w-4 mr-2' />
           Add new
         </Button>

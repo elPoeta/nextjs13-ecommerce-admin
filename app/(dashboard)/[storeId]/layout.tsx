@@ -9,7 +9,7 @@ import { FC, ReactNode } from "react";
 interface DasboardLayoutProps {
   children: ReactNode,
   params: {
-    storeId: number
+    storeId: string
   }
 }
 const DasboardLayout: FC<DasboardLayoutProps> = async ({ children, params }) => {
@@ -20,7 +20,7 @@ const DasboardLayout: FC<DasboardLayoutProps> = async ({ children, params }) => 
   }
 
   const storeExist = await db.query.store.findFirst({
-    where: and(eq(store.id, storeId), eq(store.userId, parseInt(session.user.id)))
+    where: and(eq(store.id, storeId), eq(store.userId, session.user.id))
   })
 
   if (!storeExist) {

@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
 
     const newStore = await db.insert(store).values({
       name,
-      userId: parseInt(session.user.id),
+      userId: session.user.id,
     });
     return NextResponse.json(newStore);
   } catch (error) {

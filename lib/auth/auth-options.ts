@@ -1,11 +1,13 @@
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import GithubProvider from "next-auth/providers/github";
 import { eq } from "drizzle-orm";
-import { DrizzleAdapter } from "@/lib/auth/drizzle-adapter";
+//import { DrizzleAdapter } from "@/lib/auth/drizzle-adapter";
 import { db } from "@/db";
 import { users } from "@/db/schema/users";
 import { getServerSession, type NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
+  //@ts-ignore
   adapter: DrizzleAdapter(db),
   session: {
     strategy: "jwt",
@@ -24,7 +26,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.id.toString();
+        session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
@@ -41,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         .limit(1);
 
       if (!dbUser) {
-        token.id = user.id.toString();
+        token.id = user.id;
         return token;
       }
 

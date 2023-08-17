@@ -5,7 +5,7 @@ import { z } from "zod"
 import CellAction from "./cell-action"
 
 export const BillboardColumnSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   label: z.string(),
   createdAt: z.string()
 

@@ -1,20 +1,14 @@
-import {
-  integer,
-  pgTable,
-  serial,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { store } from "./store";
 import { InferModel, relations } from "drizzle-orm";
 import { billboard } from "./billboard";
 
 export const category = pgTable("category", {
-  id: serial("id").primaryKey().notNull(),
-  storeId: integer("store_id")
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  storeId: uuid("store_id")
     .notNull()
     .references(() => store.id),
-  billboardId: integer("billboard_id")
+  billboardId: uuid("billboard_id")
     .notNull()
     .references(() => billboard.id),
   name: varchar("name", { length: 256 }).unique().notNull(),

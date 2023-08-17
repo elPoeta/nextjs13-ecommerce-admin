@@ -9,7 +9,7 @@ import React, { FC } from 'react'
 
 interface CategoriesPageProps {
   params: {
-    storeId: number
+    storeId: string
   }
 }
 

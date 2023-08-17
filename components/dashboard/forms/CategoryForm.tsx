@@ -20,18 +20,9 @@ import axios from 'axios'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Billboard } from '@/db/schema/billboard'
 
-
-interface BillboardOverride extends Omit<Billboard, 'id'> {
-  id: string
-}
-
-interface CategoryOverride extends Omit<Category, 'billboardId'> {
-  billboardId: string
-}
-
 interface CategoFormProps {
-  category: CategoryOverride | undefined;
-  billboards: BillboardOverride[]
+  category: Category | undefined;
+  billboards: Billboard[]
 }
 
 const CategoryForm: FC<CategoFormProps> = ({ category, billboards }) => {
@@ -55,7 +46,6 @@ const CategoryForm: FC<CategoFormProps> = ({ category, billboards }) => {
 
   const { mutate: createOrUpdateCategory, isLoading } = useMutation({
     mutationFn: async (payload: FormCategorySchema) => {
-      console.log('PAYLOAD ', payload)
       const { data } = category ? await axios.patch(`/api/${params.storeId}/categories`, payload) : await axios.post(`/api/${params.storeId}/categories`, payload)
       return data
     },
@@ -100,7 +90,6 @@ const CategoryForm: FC<CategoFormProps> = ({ category, billboards }) => {
   })
 
   const onSubmit = (e: FormCategorySchema) => {
-    // const payload: FormCategorySchema = { name: e.name, billboardId: Number(e.billboardId) }
     createOrUpdateCategory(e)
   }
 

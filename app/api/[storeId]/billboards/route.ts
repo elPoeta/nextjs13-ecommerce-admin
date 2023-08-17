@@ -10,7 +10,7 @@ import { ZodError } from "zod";
 
 export const POST = async (
   req: Request,
-  { params }: { params: { storeId: number } }
+  { params }: { params: { storeId: string } }
 ) => {
   try {
     const session = await getAuthSession();
@@ -23,10 +23,7 @@ export const POST = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(
-        eq(store.id, params.storeId),
-        eq(users.id, Number(session.user.id))
-      ),
+      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
     });
 
     if (!storeByUser) {
@@ -54,7 +51,7 @@ export const POST = async (
 
 export const GET = async (
   req: Request,
-  { params }: { params: { storeId: number } }
+  { params }: { params: { storeId: string } }
 ) => {
   try {
     if (!params.storeId) {

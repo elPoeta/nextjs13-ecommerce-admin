@@ -12,7 +12,7 @@ const SetupLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   const storeExists = await db.query.store.findFirst({
-    where: eq(store.userId, parseInt(session.user.id))
+    where: eq(store.userId, session.user.id)
   })
 
   if (storeExists) {

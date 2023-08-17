@@ -1,9 +1,8 @@
 import {
-  integer,
   pgTable,
-  serial,
   timestamp,
   uniqueIndex,
+  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 import { users } from "./users";
@@ -15,8 +14,8 @@ import { size } from "./size";
 export const store = pgTable(
   "store",
   {
-    id: serial("id").primaryKey().notNull(),
-    userId: integer("user_id")
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    userId: uuid("userId")
       .notNull()
       .references(() => users.id),
     name: varchar("name", { length: 256 }).unique().notNull(),

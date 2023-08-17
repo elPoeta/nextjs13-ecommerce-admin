@@ -28,7 +28,7 @@ export function DrizzleAdapter(db: NodePgDatabase): Adapter {
       if (!row) throw new Error("User not found");
       return row;
     },
-    async getUser(id: number) {
+    async getUser(id: string) {
       const rows = await db
         .select()
         .from(users)
@@ -67,7 +67,7 @@ export function DrizzleAdapter(db: NodePgDatabase): Adapter {
       const row = rows[0];
       return row?.users ?? null;
     },
-    async updateUser({ id, userData }: { id: number; userData: User }) {
+    async updateUser({ id, userData }: { id: string; userData: User }) {
       if (!id) throw new Error("User not found");
       await db.update(users).set(userData).where(eq(users.id, id));
       const rows = await db
@@ -79,7 +79,7 @@ export function DrizzleAdapter(db: NodePgDatabase): Adapter {
       if (!row) throw new Error("User not found");
       return row;
     },
-    async deleteUser(userId: number) {
+    async deleteUser(userId: string) {
       await db.delete(users).where(eq(users.id, userId));
     },
     async linkAccount(account: Account) {
@@ -193,7 +193,7 @@ export function DrizzleAdapter(db: NodePgDatabase): Adapter {
       identifier,
       token,
     }: {
-      identifier: number;
+      identifier: string;
       token: string;
     }) {
       const rows = await db

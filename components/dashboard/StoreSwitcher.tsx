@@ -29,9 +29,9 @@ const StoreSwitcher: FC<StoreSwitcherProps> = ({ className, items }) => {
   }))
 
   const storeId = params.storeId;
-  const currentStore = formattedItems.find(item => item.value === Number(storeId));
+  const currentStore = formattedItems.find(item => item.value === storeId);
 
-  const onStoreSelect = (store: { label: string, value: number }) => {
+  const onStoreSelect = (store: { label: string, value: string }) => {
     setOpen(false)
     router.push(`/${store.value}`)
   }

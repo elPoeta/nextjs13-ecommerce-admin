@@ -27,7 +27,7 @@ const Categories: FC<CategoriesProps> = ({ categoryColumns }) => {
           title={`Categories (${categoryColumns.length})`}
           description='Manage Categories for your store.'
         />
-        <Button onClick={() => { router.push(`/${params.storeId}/categories/0`) }}>
+        <Button onClick={() => { router.push(`/${params.storeId}/categories/new`) }}>
           <Plus className='h-4 w-4 mr-2' />
           Add new
         </Button>

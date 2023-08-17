@@ -1,7 +1,7 @@
 'use client'
 
-import React, { FC, useEffect } from 'react'
-import Navbar from '@/components/navbar/Navbar'
+import { useEffect } from 'react'
+
 import { UseStoreModal, useStoreModal } from '@/hooks/use-store-modal'
 import { User } from 'next-auth'
 

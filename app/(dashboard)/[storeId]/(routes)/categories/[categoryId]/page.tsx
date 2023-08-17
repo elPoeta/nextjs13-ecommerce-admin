@@ -1,7 +1,6 @@
 
 import CategoryForm from '@/components/dashboard/forms/CategoryForm'
 import { db } from '@/db'
-import { billboard } from '@/db/schema/billboard'
 import { category } from '@/db/schema/category'
 import { store } from '@/db/schema/store'
 
@@ -10,8 +9,8 @@ import React, { FC } from 'react'
 
 interface CategoryPageProps {
   params: {
-    categoryId: number
-    storeId: number
+    categoryId: string
+    storeId: string
   }
 }
 

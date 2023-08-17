@@ -5,7 +5,7 @@ import { FC } from "react"
 
 interface DashboardPageProps {
   params: {
-    storeId: number
+    storeId: string
   }
 }
 

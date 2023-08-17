@@ -9,7 +9,7 @@ import { billboard } from '@/db/schema/billboard'
 
 interface billboardsPageProps {
   params: {
-    storeId: number
+    storeId: string
   }
 }
 const BillboardsPage: FC<billboardsPageProps> = async ({ params }) => {
