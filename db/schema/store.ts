@@ -10,6 +10,7 @@ import { users } from "./users";
 import { InferModel, relations } from "drizzle-orm";
 import { billboard } from "./billboard";
 import { category } from "./category";
+import { size } from "./size";
 
 export const store = pgTable(
   "store",
@@ -34,6 +35,7 @@ export const storeRelation = relations(store, ({ one, many }) => ({
   }),
   billboards: many(billboard),
   categories: many(category),
+  sizes: many(size),
 }));
 
 export type Store = InferModel<typeof store>;
