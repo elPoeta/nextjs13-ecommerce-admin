@@ -1,7 +1,6 @@
 import { db } from "@/db";
 import { category } from "@/db/schema/category";
 import { store } from "@/db/schema/store";
-import { users } from "@/db/schema/users";
 import { getAuthSession } from "@/lib/auth/auth-options";
 import { FormCategorySchemaValidator } from "@/lib/validators/formValidator";
 import { and, eq } from "drizzle-orm";
@@ -41,7 +40,10 @@ export const PATCH = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
+      where: and(
+        eq(store.id, params.storeId),
+        eq(store.userId, session.user.id)
+      ),
     });
 
     if (!storeByUser) {
@@ -85,7 +87,10 @@ export const DELETE = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
+      where: and(
+        eq(store.id, params.storeId),
+        eq(store.userId, session.user.id)
+      ),
     });
 
     if (!storeByUser) {

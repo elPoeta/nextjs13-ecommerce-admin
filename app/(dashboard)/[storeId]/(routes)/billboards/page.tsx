@@ -1,6 +1,5 @@
 import Billboard from '@/components/dashboard/billboard/Billboard'
 import { db } from '@/db'
-import { store } from '@/db/schema/store'
 import { desc, eq } from 'drizzle-orm'
 import React, { FC } from 'react'
 import { format } from 'date-fns'
@@ -14,7 +13,7 @@ interface billboardsPageProps {
 }
 const BillboardsPage: FC<billboardsPageProps> = async ({ params }) => {
   const billboars = await db.query.billboard.findMany({
-    where: eq(store.id, params.storeId),
+    where: eq(billboard.storeId, params.storeId),
     orderBy: [desc(billboard.createdAt)],
   });
   const formattedColumns: BillboardColumn[] = billboars.map(billboard => ({

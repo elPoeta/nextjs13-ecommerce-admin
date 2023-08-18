@@ -1,15 +1,15 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "06f54c5f-121c-48d6-a6e1-647f09a01c47",
+  "id": "403d51c9-ad05-48d1-8c85-240979a158d9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
       "name": "account",
       "schema": "",
       "columns": {
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -77,12 +77,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "account_user_id_user_id_fk": {
-          "name": "account_user_id_user_id_fk",
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -365,8 +365,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "user_id": {
-          "name": "user_id",
+        "userId": {
+          "name": "userId",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -402,12 +402,12 @@
         }
       },
       "foreignKeys": {
-        "store_user_id_user_id_fk": {
-          "name": "store_user_id_user_id_fk",
+        "store_userId_user_id_fk": {
+          "name": "store_userId_user_id_fk",
           "tableFrom": "store",
           "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -503,10 +503,9 @@
       "columns": {
         "identifier": {
           "name": "identifier",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
         "token": {
           "name": "token",

@@ -1,6 +1,6 @@
 import BillboardForm from '@/components/dashboard/forms/BillboardForm'
 import { db } from '@/db'
-import { billboard } from '@/db/schema/billboard'
+import { Billboard, billboard } from '@/db/schema/billboard'
 import { eq } from 'drizzle-orm'
 import React, { FC } from 'react'
 
@@ -11,9 +11,9 @@ interface BillboardPageProps {
 }
 
 const BillboardPage: FC<BillboardPageProps> = async ({ params: { billboardId } }) => {
-  const billboardDb = await db.query.billboard.findFirst({
+  const billboardDb = billboardId !== 'new' ? await db.query.billboard.findFirst({
     where: eq(billboard.id, billboardId)
-  })
+  }) : undefined
 
 
   return (

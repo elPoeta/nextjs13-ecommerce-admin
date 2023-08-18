@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { store } from "@/db/schema/store";
 import { getAuthSession } from "@/lib/auth/auth-options";
 import { FormModalStoreSchemaValidator } from "@/lib/validators/formValidator";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -25,10 +25,14 @@ export const POST = async (req: Request) => {
       return new NextResponse("Store name alreay taken", { status: 409 });
     }
 
-    const newStore = await db.insert(store).values({
+    await db.insert(store).values({
       name,
       userId: session.user.id,
     });
+    const newStore = await db.query.store.findFirst({
+      where: and(eq(store.name, name), eq(store.userId, session.user.id)),
+    });
+
     return NextResponse.json(newStore);
   } catch (error) {
     console.log("[STORES-POST]", error);

@@ -2,7 +2,6 @@ import Categories from '@/components/dashboard/category/Categories';
 import { CategoryColumn } from '@/components/dashboard/category/columns';
 import { db } from '@/db';
 import { category } from '@/db/schema/category';
-import { store } from '@/db/schema/store';
 import { format } from 'date-fns';
 import { desc, eq } from 'drizzle-orm';
 import React, { FC } from 'react'
@@ -15,7 +14,7 @@ interface CategoriesPageProps {
 
 const CategoriesPage: FC<CategoriesPageProps> = async ({ params }) => {
   const categories = await db.query.category.findMany({
-    where: eq(store.id, params.storeId),
+    where: eq(category.storeId, params.storeId),
     orderBy: [desc(category.createdAt)],
     with: {
       billboard: true

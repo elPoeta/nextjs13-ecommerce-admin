@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"user_id" uuid NOT NULL,
+	"userId" uuid NOT NULL,
 	"type" text NOT NULL,
 	"provider" text NOT NULL,
 	"providerAccountId" text NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS "size" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "store" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"user_id" uuid NOT NULL,
+	"userId" uuid NOT NULL,
 	"name" varchar(256) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
-	"identifier" uuid DEFAULT gen_random_uuid() NOT NULL,
+	"identifier" text NOT NULL,
 	"token" text NOT NULL,
 	"expires" timestamp NOT NULL,
 	CONSTRAINT verificationToken_identifier_token PRIMARY KEY("identifier","token")
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 CREATE UNIQUE INDEX IF NOT EXISTS "sotore__name__idx" ON "store" ("name");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "users__email__idx" ON "user" ("email");--> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -113,7 +113,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "store" ADD CONSTRAINT "store_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "store" ADD CONSTRAINT "store_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

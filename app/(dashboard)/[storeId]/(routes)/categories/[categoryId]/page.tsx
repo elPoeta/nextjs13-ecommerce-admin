@@ -1,6 +1,7 @@
 
 import CategoryForm from '@/components/dashboard/forms/CategoryForm'
 import { db } from '@/db'
+import { billboard } from '@/db/schema/billboard'
 import { category } from '@/db/schema/category'
 import { store } from '@/db/schema/store'
 
@@ -15,12 +16,12 @@ interface CategoryPageProps {
 }
 
 const CategoryPage: FC<CategoryPageProps> = async ({ params: { categoryId, storeId } }) => {
-  const categoryDb = await db.query.category.findFirst({
+  const categoryDb = categoryId !== 'new' ? await db.query.category.findFirst({
     where: eq(category.id, categoryId)
-  })
+  }) : undefined;
 
   const billboards = await db.query.billboard.findMany({
-    where: eq(store.id, storeId)
+    where: eq(billboard.storeId, storeId)
   })
 
   return (

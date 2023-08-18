@@ -1,7 +1,6 @@
 import { db } from "@/db";
 import { billboard } from "@/db/schema/billboard";
 import { store } from "@/db/schema/store";
-import { users } from "@/db/schema/users";
 import { getAuthSession } from "@/lib/auth/auth-options";
 import { FormBillboardSchemaValidator } from "@/lib/validators/formValidator";
 import { and, eq } from "drizzle-orm";
@@ -23,7 +22,10 @@ export const POST = async (
     }
 
     const storeByUser = await db.query.store.findFirst({
-      where: and(eq(store.id, params.storeId), eq(users.id, session.user.id)),
+      where: and(
+        eq(store.id, params.storeId),
+        eq(store.userId, session.user.id)
+      ),
     });
 
     if (!storeByUser) {

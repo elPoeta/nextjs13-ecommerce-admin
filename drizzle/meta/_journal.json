@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1692275953405,
-      "tag": "0000_first_wither",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1692276113320,
-      "tag": "0001_special_drax",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1692276669964,
-      "tag": "0002_wandering_taskmaster",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1692277140962,
-      "tag": "0003_awesome_shotgun",
+      "when": 1692354944053,
+      "tag": "0000_late_la_nuit",
       "breakpoints": true
     }
   ]
