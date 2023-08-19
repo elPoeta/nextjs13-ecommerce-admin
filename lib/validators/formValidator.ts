@@ -21,3 +21,10 @@ export const FormCategorySchemaValidator = z.object({
 });
 
 export type FormCategorySchema = z.infer<typeof FormCategorySchemaValidator>;
+
+export const FormSizeSchemaValidator = z.object({
+  name: z.string().min(3),
+  value: z.string().min(1),
+});
+
+export type FormSizeSchema = z.infer<typeof FormSizeSchemaValidator>;
