@@ -46,7 +46,7 @@ const CategoryForm: FC<CategoFormProps> = ({ category, billboards }) => {
 
   const { mutate: createOrUpdateCategory, isLoading } = useMutation({
     mutationFn: async (payload: FormCategorySchema) => {
-      const { data } = category ? await axios.patch(`/api/${params.storeId}/categories`, payload) : await axios.post(`/api/${params.storeId}/categories`, payload)
+      const { data } = category ? await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, payload) : await axios.post(`/api/${params.storeId}/categories`, payload)
       return data
     },
     onError: (error) => {

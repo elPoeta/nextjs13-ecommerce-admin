@@ -45,7 +45,7 @@ const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
 
   const { mutate: createOrUpdateBillboard, isLoading } = useMutation({
     mutationFn: async (payload: FormBillboardSchema) => {
-      const { data } = billboard ? await axios.patch(`/api/${params.storeId}/billboards`, payload) : await axios.post(`/api/${params.storeId}/billboards`, payload)
+      const { data } = billboard ? await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, payload) : await axios.post(`/api/${params.storeId}/billboards`, payload)
       return data
     },
     onError: (error) => {
