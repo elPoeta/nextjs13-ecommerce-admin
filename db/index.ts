@@ -6,6 +6,7 @@ import * as storeSchema from "./schema/store";
 import * as billboardSchema from "./schema/billboard";
 import * as categorySchema from "./schema/category";
 import * as sizeSchema from "./schema/size";
+import * as colorSchema from "./schema/color";
 
 const client: NodePgClient = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -20,5 +21,6 @@ export const db = drizzle(client, {
     ...billboardSchema,
     ...categorySchema,
     ...sizeSchema,
+    ...colorSchema,
   },
 });

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { useForm } from 'react-hook-form'
-import { FormSizeSchema, FormSizeSchemaValidator } from '@/lib/validators/formValidator'
+import { FormColorSchema, FormColorSchemaValidator } from '@/lib/validators/formValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
@@ -16,18 +16,18 @@ import { useParams, useRouter } from 'next/navigation'
 import AlertModal from '../../modals/AlertModal'
 
 import axios from 'axios'
-import { Size } from '@/db/schema/size'
+import { Color } from '@/db/schema/color'
 
 
-interface SizeFormProps {
-  size: Size | undefined;
+interface ColorFormProps {
+  color: Color | undefined;
 }
 
-const SizeForm: FC<SizeFormProps> = ({ size }) => {
+const ColorForm: FC<ColorFormProps> = ({ color }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const form = useForm<FormSizeSchema>({
-    resolver: zodResolver(FormSizeSchemaValidator),
-    defaultValues: size || {
+  const form = useForm<FormColorSchema>({
+    resolver: zodResolver(FormColorSchemaValidator),
+    defaultValues: color || {
       name: "",
       value: ""
     }
@@ -36,15 +36,15 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
   const params = useParams();
   const router = useRouter();
 
-  const title = size ? 'Edit size' : 'Create size'
-  const description = size ? 'Edit a size.' : 'Add a new size.'
-  const toastMessage = size ? 'Size edited.' : 'Size created.'
-  const toastErrorMessage = size ? 'Could not update size.' : 'Could not create size.'
-  const action = size ? 'Save changes' : 'Create'
+  const title = color ? 'Edit color' : 'Create color'
+  const description = color ? 'Edit a color.' : 'Add a new color.'
+  const toastMessage = color ? 'Color edited.' : 'Size created.'
+  const toastErrorMessage = color ? 'Could not update color.' : 'Could not create color.'
+  const action = color ? 'Save changes' : 'Create'
 
-  const { mutate: createOrUpdateSize, isLoading } = useMutation({
-    mutationFn: async (payload: FormSizeSchema) => {
-      const { data } = size ? await axios.patch(`/api/${params.storeId}/sizes/${params.sizeId}`, payload) : await axios.post(`/api/${params.storeId}/sizes`, payload)
+  const { mutate: createOrUpdateColor, isLoading } = useMutation({
+    mutationFn: async (payload: FormColorSchema) => {
+      const { data } = color ? await axios.patch(`/api/${params.storeId}/colors/${params.colorId}`, payload) : await axios.post(`/api/${params.storeId}/colors`, payload)
       return data
     },
     onError: (error) => {
@@ -59,36 +59,36 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
         description: toastMessage
       })
       router.refresh()
-      router.push(`/${params.storeId}/sizes`)
+      router.push(`/${params.storeId}/colors`)
     },
   })
 
 
-  const { mutate: deleteSize, isLoading: isLoadingDelete } = useMutation({
+  const { mutate: deleteColor, isLoading: isLoadingDelete } = useMutation({
     mutationFn: async () => {
-      const { data } = await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`)
+      const { data } = await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`)
       return data
     },
     onError: () => {
       return toast({
         title: 'There was an error.',
-        description: 'Could not delete size. Remove Products first.',
+        description: 'Could not delete color. Remove Products first.',
         variant: 'destructive',
       })
     },
     onSuccess: () => {
       setIsOpen(false)
       router.refresh()
-      router.push(`/${params.storeId}/sizes`)
+      router.push(`/${params.storeId}/colors`)
       toast({
-        description: 'Your size has been deleted',
+        description: 'Your color has been deleted',
         variant: 'destructive'
       })
     },
   })
 
-  const onSubmit = (e: FormSizeSchema) => {
-    createOrUpdateSize(e)
+  const onSubmit = (e: FormColorSchema) => {
+    createOrUpdateColor(e)
   }
 
   return (
@@ -98,13 +98,13 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
         loading={isLoadingDelete}
         onClose={() => setIsOpen(false)}
         onConfirm={() => {
-          deleteSize()
+          deleteColor()
         }}
       />
       <div className='flex items-center justify-between'>
         <Heading title={title} description={description} />
-        {size &&
-          <Button variant='destructive' size='icon' onClick={() => { setIsOpen(true) }}>
+        {color &&
+          <Button variant='destructive' color='icon' onClick={() => { setIsOpen(true) }}>
             <Trash className='h-4 w-4' />
           </Button>}
       </div>
@@ -122,7 +122,7 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder='Size Name'
+                      placeholder='Color Name'
                       {...field}
                     />
                   </FormControl>
@@ -137,11 +137,18 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder='Size Value'
-                      {...field}
-                    />
+                    {/* <div className='flex items-center gap-x-4'> */}
+                    <div className="h-10 w-20 rounded-full border flex items-center">
+
+                      <Input
+                        type="color"
+                        disabled={isLoading}
+                        placeholder='Color Value'
+                        {...field}
+                      />
+                    </div>
+                    {/* <div className="h-6 w-6 rounded-full border" style={{ backgroundColor: field.value }} /> */}
+                    {/* </div> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -161,4 +168,4 @@ const SizeForm: FC<SizeFormProps> = ({ size }) => {
   )
 }
 
-export default SizeForm
+export default ColorForm
