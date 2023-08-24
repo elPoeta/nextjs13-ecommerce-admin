@@ -15,6 +15,13 @@
       "when": 1692467853269,
       "tag": "0001_dashing_cerebro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1692876763047,
+      "tag": "0002_naive_domino",
+      "breakpoints": true
     }
   ]
 }

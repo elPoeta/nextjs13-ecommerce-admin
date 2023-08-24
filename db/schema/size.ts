@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { store } from "./store";
 import { InferModel, relations } from "drizzle-orm";
+import { product } from "./product";
 
 export const size = pgTable("size", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -20,11 +21,12 @@ export const size = pgTable("size", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const sizeRelation = relations(size, ({ one }) => ({
+export const sizeRelation = relations(size, ({ one, many }) => ({
   size: one(store, {
     fields: [size.storeId],
     references: [store.id],
   }),
+  products: many(product),
 }));
 
 export type Size = InferModel<typeof size>;

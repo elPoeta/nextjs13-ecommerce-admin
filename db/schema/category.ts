@@ -2,6 +2,7 @@ import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { store } from "./store";
 import { InferModel, relations } from "drizzle-orm";
 import { billboard } from "./billboard";
+import { product } from "./product";
 
 export const category = pgTable("category", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -16,7 +17,7 @@ export const category = pgTable("category", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const categoryRelation = relations(category, ({ one }) => ({
+export const categoryRelation = relations(category, ({ one, many }) => ({
   store: one(store, {
     fields: [category.storeId],
     references: [store.id],
@@ -25,6 +26,7 @@ export const categoryRelation = relations(category, ({ one }) => ({
     fields: [category.billboardId],
     references: [billboard.id],
   }),
+  products: many(product),
 }));
 
 export type Category = InferModel<typeof category>;
