@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form'
 import { FormProductSchema, FormProductSchemaValidator } from '@/lib/validators/formValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
 import { Input } from '../../ui/input'
 import { toast } from '@/hooks/use-toast'
 import { useParams, useRouter } from 'next/navigation'
@@ -23,6 +23,8 @@ import ImageUpload from '@/components/common/ImageUpload'
 import { Category } from '@/db/schema/category'
 import { Color } from '@/db/schema/color'
 import { Size } from '@/db/schema/size'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
 
 
 
@@ -274,6 +276,46 @@ const ProductForm: FC<ProductFormProps> = ({ product, categories, colors, sizes 
                     </SelectContent>
                   </Select>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name='isFeatured'
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded p-4'>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className='space-y1 leading-none'>
+                    <FormLabel>Featured</FormLabel>
+                    <FormDescription>
+                      This product will appear on the home page
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name='isArchived'
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded p-4'>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className='space-y1 leading-none'>
+                    <FormLabel>Archived</FormLabel>
+                    <FormDescription>
+                      This product will not appear anywhere in the store
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />
