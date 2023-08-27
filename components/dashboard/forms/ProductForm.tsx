@@ -90,7 +90,7 @@ const ProductForm: FC<ProductFormProps> = ({ product, categories, colors, sizes 
     onError: () => {
       return toast({
         title: 'There was an error.',
-        description: 'Could not delete product. Remove Categories first.',
+        description: 'Could not delete product. Something went wrong.',
         variant: 'destructive',
       })
     },
