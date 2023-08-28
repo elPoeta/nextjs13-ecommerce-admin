@@ -9,6 +9,7 @@ import * as sizeSchema from "./schema/size";
 import * as colorSchema from "./schema/color";
 import * as productSchema from "./schema/product";
 import * as imageSchema from "./schema/image";
+import * as orderSchema from "./schema/order";
 
 const client: NodePgClient = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -26,5 +27,6 @@ export const db = drizzle(client, {
     ...colorSchema,
     ...productSchema,
     ...imageSchema,
+    ...orderSchema,
   },
 });

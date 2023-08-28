@@ -12,6 +12,7 @@ import { category } from "./category";
 import { size } from "./size";
 import { color } from "./color";
 import { product } from "./product";
+import { order } from "./order";
 
 export const store = pgTable(
   "store",
@@ -39,6 +40,7 @@ export const storeRelation = relations(store, ({ one, many }) => ({
   sizes: many(size),
   colors: many(color),
   products: many(product),
+  orders: many(order),
 }));
 
 export type Store = InferModel<typeof store>;
