@@ -14,7 +14,7 @@ export const color = pgTable("color", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const sizeRelation = relations(color, ({ one, many }) => ({
+export const colorRelation = relations(color, ({ one, many }) => ({
   color: one(store, {
     fields: [color.storeId],
     references: [store.id],
