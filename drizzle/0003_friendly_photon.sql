@@ -8,11 +8,11 @@ CREATE TABLE IF NOT EXISTS "order" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "orderItem" (
+CREATE TABLE IF NOT EXISTS "order_item" (
 	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"product_id" uuid NOT NULL,
 	"order_id" uuid NOT NULL,
-	CONSTRAINT orderItem_id_product_id_order_id PRIMARY KEY("id","product_id","order_id")
+	CONSTRAINT order_item_id_product_id_order_id PRIMARY KEY("id","product_id","order_id")
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -22,13 +22,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "orderItem" ADD CONSTRAINT "orderItem_product_id_product_id_fk" FOREIGN KEY ("product_id") REFERENCES "product"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "order_item" ADD CONSTRAINT "order_item_product_id_product_id_fk" FOREIGN KEY ("product_id") REFERENCES "product"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "orderItem" ADD CONSTRAINT "orderItem_order_id_order_id_fk" FOREIGN KEY ("order_id") REFERENCES "order"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "order_item" ADD CONSTRAINT "order_item_order_id_order_id_fk" FOREIGN KEY ("order_id") REFERENCES "order"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

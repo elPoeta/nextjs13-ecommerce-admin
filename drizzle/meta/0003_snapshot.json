@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "903b6a48-06b8-4076-a843-44a0a7e98ada",
+  "id": "dc14cab4-e810-4189-8024-45e1057cd4e4",
   "prevId": "7f14e13d-0ade-479d-b4dd-6e390a4dbe14",
   "tables": {
     "account": {
@@ -441,8 +441,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "orderItem": {
-      "name": "orderItem",
+    "order_item": {
+      "name": "order_item",
       "schema": "",
       "columns": {
         "id": {
@@ -467,9 +467,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "orderItem_product_id_product_id_fk": {
-          "name": "orderItem_product_id_product_id_fk",
-          "tableFrom": "orderItem",
+        "order_item_product_id_product_id_fk": {
+          "name": "order_item_product_id_product_id_fk",
+          "tableFrom": "order_item",
           "tableTo": "product",
           "columnsFrom": [
             "product_id"
@@ -480,9 +480,9 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "orderItem_order_id_order_id_fk": {
-          "name": "orderItem_order_id_order_id_fk",
-          "tableFrom": "orderItem",
+        "order_item_order_id_order_id_fk": {
+          "name": "order_item_order_id_order_id_fk",
+          "tableFrom": "order_item",
           "tableTo": "order",
           "columnsFrom": [
             "order_id"
@@ -495,8 +495,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "orderItem_id_product_id_order_id": {
-          "name": "orderItem_id_product_id_order_id",
+        "order_item_id_product_id_order_id": {
+          "name": "order_item_id_product_id_order_id",
           "columns": [
             "id",
             "product_id",

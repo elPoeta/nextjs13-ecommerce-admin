@@ -4,7 +4,7 @@ import { order } from "./order";
 import { InferModel, relations } from "drizzle-orm";
 
 export const orderItem = pgTable(
-  "orderItem",
+  "order_item",
   {
     id: uuid("id").defaultRandom().notNull(),
     productId: uuid("product_id")

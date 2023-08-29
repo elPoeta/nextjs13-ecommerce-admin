@@ -6,12 +6,12 @@ import { format } from 'date-fns'
 import { BillboardColumn } from '@/components/dashboard/billboard/columns'
 import { billboard } from '@/db/schema/billboard'
 
-interface billboardsPageProps {
+interface BillboardsPageProps {
   params: {
     storeId: string
   }
 }
-const BillboardsPage: FC<billboardsPageProps> = async ({ params }) => {
+const BillboardsPage: FC<BillboardsPageProps> = async ({ params }) => {
   const billboars = await db.query.billboard.findMany({
     where: eq(billboard.storeId, params.storeId),
     orderBy: [desc(billboard.createdAt)],
