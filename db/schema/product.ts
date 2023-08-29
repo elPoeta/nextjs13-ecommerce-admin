@@ -12,6 +12,7 @@ import { category } from "./category";
 import { size } from "./size";
 import { color } from "./color";
 import { image } from "./image";
+import { orderItem } from "./orderItem";
 
 export const product = pgTable("product", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -53,6 +54,7 @@ export const productRelation = relations(product, ({ one, many }) => ({
     references: [size.id],
   }),
   images: many(image),
+  orderItems: many(orderItem),
 }));
 
 export type Product = InferModel<typeof product>;

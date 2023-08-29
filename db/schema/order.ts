@@ -7,6 +7,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 import { store } from "./store";
+import { orderItem } from "./orderItem";
 
 export const order = pgTable("order", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -25,6 +26,7 @@ export const orderRelation = relations(order, ({ one, many }) => ({
     fields: [order.storeId],
     references: [store.id],
   }),
+  orderItems: many(orderItem),
 }));
 
 export type Order = InferModel<typeof order>;
