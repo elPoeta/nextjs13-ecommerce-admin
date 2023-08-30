@@ -5,6 +5,8 @@ import { format } from 'date-fns'
 
 import { order } from '@/db/schema/order'
 import { formatter } from '@/lib/utils'
+import { OrderColumn } from '@/components/dashboard/order/columns'
+import Order from '@/components/dashboard/order/Order'
 
 
 interface OrdersPageProps {
@@ -42,7 +44,7 @@ const OrdersPage: FC<OrdersPageProps> = async ({ params }) => {
     // }
   });
 
-  const formattedColumns = orders.map(order => ({
+  const formattedColumns: OrderColumn[] = orders.map(order => ({
     id: order.id,
     phone: order.phone,
     address: order.address,
@@ -50,13 +52,14 @@ const OrdersPage: FC<OrdersPageProps> = async ({ params }) => {
     totalPrice: formatter.format(order.orderItems.reduce((total, item) => {
       return total + item.product.price;
     }, 0)),
+    isPaid: order.isPaid,
     createdAt: format(order.createdAt, 'MMMM do, yyyy')
   }))
 
   return (
     <div className='flex-col'>
       <div className='flex-1 space-y-4 p-8 pt-6'>
-        Orders
+        <Order orderColumns={formattedColumns} />
       </div>
     </div>
   )
