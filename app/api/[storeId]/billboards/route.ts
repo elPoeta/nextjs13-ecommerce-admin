@@ -61,7 +61,7 @@ export const GET = async (
     }
 
     const billboards = await db.query.billboard.findMany({
-      where: eq(store.id, params.storeId),
+      where: eq(billboard.storeId, params.storeId),
     });
 
     return NextResponse.json(billboards);
