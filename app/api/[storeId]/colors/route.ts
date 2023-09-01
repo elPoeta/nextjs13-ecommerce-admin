@@ -61,7 +61,7 @@ export const GET = async (
     }
 
     const colors = await db.query.color.findMany({
-      where: eq(store.id, params.storeId),
+      where: eq(color.storeId, params.storeId),
     });
 
     return NextResponse.json(colors);
