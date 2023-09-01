@@ -61,7 +61,7 @@ export const GET = async (
     }
 
     const categories = await db.query.category.findMany({
-      where: eq(store.id, params.storeId),
+      where: eq(category.storeId, params.storeId),
     });
 
     return NextResponse.json(categories);
