@@ -61,7 +61,7 @@ export const GET = async (
     }
 
     const sizes = await db.query.size.findMany({
-      where: eq(store.id, params.storeId),
+      where: eq(size.storeId, params.storeId),
     });
 
     return NextResponse.json(sizes);
