@@ -1,11 +1,10 @@
 import { db } from "@/db";
-import { category } from "@/db/schema/category";
 import { Image, image } from "@/db/schema/image";
 import { product } from "@/db/schema/product";
 import { store } from "@/db/schema/store";
 import { getAuthSession } from "@/lib/auth/auth-options";
 import { FormProductSchemaValidator } from "@/lib/validators/formValidator";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -88,20 +87,24 @@ export const GET = async (
     const categoryId = searchParams.get("categoryId") || undefined;
     const colorId = searchParams.get("colorId") || undefined;
     const sizeId = searchParams.get("sizeId") || undefined;
-    const isFeatured = searchParams.get("isFeatured");
+    const isFeaturedPresent = searchParams.get("isFeatured") || undefined;
+    const isFeatured = isFeaturedPresent === "true" ? true : undefined;
 
     if (!params.storeId) {
       return new NextResponse("Store id is required", { status: 400 });
     }
 
+    const where = and(
+      eq(product.storeId, params.storeId),
+      isFeatured ? eq(product.isFeatured, isFeatured) : undefined,
+      eq(product.isArchived, false),
+      categoryId ? eq(product.categoryId, categoryId) : undefined,
+      colorId ? eq(product.colorId, colorId) : undefined,
+      sizeId ? eq(product.sizeId, sizeId) : undefined
+    );
+
     const products = await db.query.product.findMany({
-      where: sql`${product.storeId} = ${params.storeId} AND ${
-        product.categoryId
-      } = ${categoryId} AND ${product.colorId} = ${colorId} AND ${
-        product.sizeId
-      } = ${sizeId} AND ${product.isFeatured} = ${
-        isFeatured ? true : undefined
-      } AND ${product.isArchived} = false`,
+      where,
       with: {
         images: true,
         category: true,
